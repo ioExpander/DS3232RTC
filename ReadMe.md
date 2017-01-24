@@ -8,6 +8,8 @@ Jack Christensen Mar 2013
 ## Introduction ##
 **DS3232RTC** is an Arduino library that supports the Maxim Integrated DS3232 and DS3231 Real-Time Clocks. This library is intended to be used with the [Arduino Time library](http://www.arduino.cc/playground/Code/Time).
 
+It supports common Arduinos and ESP8266 chips.
+
 The **DS3232RTC** library is a drop-in replacement for the DS1307RTC.h library by Michael Margolis that is supplied with the Arduino Time library above. To change from using a DS1307 RTC to an DS323x RTC, it is only necessary to use `#include <DS3232RTC.h>` instead of `#include <DS1307RTC.h>`.
 
 This library is ***not*** a drop-in replacement for [PJRC's newer version of the DS1307RTC library](http://www.pjrc.com/teensy/td_libs_DS1307RTC.html).
@@ -40,6 +42,14 @@ To use the **DS3232RTC** library, the Time and Wire libraries must also be inclu
 #include <DS3232RTC.h>    //http://github.com/JChristensen/DS3232RTC
 #include <Time.h>         //http://www.arduino.cc/playground/Code/Time
 #include <Wire.h>         //http://arduino.cc/en/Reference/Wire (included with Arduino IDE)
+```
+
+The Arduino setup function must call the RTC.begin(); method to initiate I2C communication with the module.
+```c++
+void setup()
+{
+  RTC.begin();
+}
 ```
 
 ## Enumerations ##
@@ -159,7 +169,7 @@ Write one or more bytes to RTC memory.
 #####Parameters
 **addr:** First SRAM address to write *(byte)*. The valid address range is 0x00-0x12 for DS3231, 0x00-0xFF for DS3232. The general-purpose SRAM for the DS3232 begins at address 0x14. Address is not checked for validity by the library.
 **values:** An array of values to write _(*byte)_  
-**nBytes:** Number of bytes to write *(byte)*. Must be between 1 and 31 (Wire library limitation) but is not checked by the library. 
+**nBytes:** Number of bytes to write *(byte)*. Must be between 1 and 31 (Wire library limitation) but is not checked by the library.
 #####Returns
 I2C status *(byte)*. Returns zero if successful.
 #####Example
@@ -192,7 +202,7 @@ Read one or more bytes from RTC RAM.
 #####Parameters
 **addr:** First SRAM address to read *(byte)*. The valid address range is 0x00-0x12 for DS3231, 0x00-0xFF for DS3232. The general-purpose SRAM for the DS3232 begins at address 0x14. Address is not checked for validity by the library.
 **values:** An array to receive the values read _(*byte)_  
-**nBytes:** Number of bytes to read *(byte)*. Must be between 1 and 32 (Wire library limitation) but is not checked by the library. 
+**nBytes:** Number of bytes to read *(byte)*. Must be between 1 and 32 (Wire library limitation) but is not checked by the library.
 #####Returns
 I2C status *(byte)*. Returns zero if successful.
 #####Example

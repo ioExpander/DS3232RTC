@@ -30,8 +30,8 @@
  * visit http://creativecommons.org/licenses/by-sa/3.0/ or send a       *
  * letter to Creative Commons, 171 Second Street, Suite 300,            *
  * San Francisco, California, 94105, USA.                               *
- *----------------------------------------------------------------------*/ 
- 
+ *----------------------------------------------------------------------*/
+
 #include <DS3232RTC.h>        //http://github.com/JChristensen/DS3232RTC
 #include <Streaming.h>        //http://arduiniana.org/libraries/streaming/
 #include <Time.h>             //http://playground.arduino.cc/Code/Time
@@ -40,7 +40,8 @@
 void setup(void)
 {
     Serial.begin(115200);
-    
+
+    RTC.begin(); //Begins I2C communication with the module
     //setSyncProvider() causes the Time library to synchronize with the
     //external RTC by calling RTC.get() every five minutes by default.
     setSyncProvider(RTC.get);
@@ -75,7 +76,7 @@ void loop(void)
             tm.Second = Serial.parseInt();
             t = makeTime(tm);
             RTC.set(t);        //use the time_t value to ensure correct weekday is set
-            setTime(t);        
+            setTime(t);
             Serial << F("RTC set to: ");
             printDateTime(t);
             Serial << endl;
@@ -83,7 +84,7 @@ void loop(void)
             while (Serial.available() > 0) Serial.read();
         }
     }
-    
+
     t = now();
     if (t != tLast) {
         tLast = t;

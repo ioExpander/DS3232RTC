@@ -11,7 +11,7 @@
  * connected to pin 13 (SCK). The LED causes problems because the SPI   *
  * pins are also the I2C pins on the ATtiny. Connect MISO, MOSI, SCK    *
  * on the ATmega to the corresponding pins on the ATtiny through 220Ω   *
- * resistors for safety. Use 4.7K pullup resistors on the ATtiny        *    
+ * resistors for safety. Use 4.7K pullup resistors on the ATtiny        *
  * I2C bus.                                                             *
  *                                                                      *
  * Jack Christensen 21Aug2013                                           *
@@ -21,7 +21,7 @@
  * visit http://creativecommons.org/licenses/by-sa/3.0/ or send a       *
  * letter to Creative Commons, 171 Second Street, Suite 300,            *
  * San Francisco, California, 94105, USA.                               *
- *----------------------------------------------------------------------*/ 
+ *----------------------------------------------------------------------*/
 
 #include <DS3232RTC.h>             //http://github.com/JChristensen/DS3232RTC
 #include <Time.h>                  //http://playground.arduino.cc/Code/Time
@@ -31,7 +31,7 @@
 void setup(void)
 {
     Debug.begin(250000);
-    
+    RTC.begin(); //Begins I2C communication with the module
     //setSyncProvider() causes the Time library to synchronize with the
     //external RTC by calling RTC.get() every five minutes by default.
     setSyncProvider(RTC.get);

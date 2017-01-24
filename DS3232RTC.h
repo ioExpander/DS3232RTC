@@ -33,16 +33,16 @@
  * CC BY-SA 4.0                                                         *
  * "Arduino DS3232RTC Library" by Jack Christensen is licensed under    *
  * CC BY-SA 4.0, http://creativecommons.org/licenses/by-sa/4.0/         *
- *----------------------------------------------------------------------*/ 
+ *----------------------------------------------------------------------*/
 
 #ifndef DS3232RTC_h
 #define DS3232RTC_h
 #include <Time.h>
 
 #if defined(ARDUINO) && ARDUINO >= 100
-#include <Arduino.h> 
+#include <Arduino.h>
 #else
-#include <WProgram.h> 
+#include <WProgram.h>
 #endif
 
 //DS3232 I2C Address
@@ -131,6 +131,7 @@ class DS3232RTC
 {
     public:
         DS3232RTC();
+        void begin();		// Important ! begins I2C protocol communication
         static time_t get(void);    //must be static to work with setSyncProvider() in the Time library
         byte set(time_t t);
         static byte read(tmElements_t &tm);
