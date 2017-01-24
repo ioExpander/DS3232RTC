@@ -13,5 +13,4 @@
         "atmelsam", 
         "espressif8266"
     ]
-  "platforms": "atmelavr, esp8266"
 }
